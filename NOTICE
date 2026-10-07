@@ -1,0 +1,16 @@
+AC2: Actor-Critic with Action Chunking
+Copyright 2026 The AC2 Authors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This repository includes a modified copy of verl (https://github.com/volcengine/verl),
+release 0.8.0, licensed under the Apache License, Version 2.0. Its license and notice files are
+kept in src/verl/LICENSE and src/verl/Notice.txt; src/verl/README.md lists the files the AC2
+authors added or modified.
+
+The judge prompt templates in src/ac2/rewards/templates/ are adapted from third-party work
+licensed under the Apache License, Version 2.0:
+  - imo_proofautograder.txt and finegrained_noref_judge.txt: the ProofAutoGrader prompt of
+    IMO-ProofBench (https://github.com/google-deepmind/superhuman).
+  - qednano_rubric_judge.txt: the grader prompt of QED-Nano
+    (https://github.com/CMU-AIRe/QED-Nano), itself adapted from ProofBench.

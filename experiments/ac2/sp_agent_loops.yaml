@@ -1,0 +1,11 @@
+# Agent-loop registry, pinned by the runner via
+#   actor_rollout_ref.rollout.agent.agent_loop_config_path=<this file>
+# sp_prefix_agent: continues a replayed prefix and honours the per-row sp_q_max_new_tokens
+#   cap (ready, non-audited rows get an action chunk of min(b, C - a_i) new tokens; 0 = no cap).
+# sp_q_agent: the critic-query loop -- raw context ids in, <=4 greedy tokens out, no
+#   grid-constrained decoding.
+# Validation rows fall back to default_agent_loop (single_turn_agent).
+- name: sp_prefix_agent
+  _target_: verl.experimental.agent_loop.prefix_agent_loop.PrefixAgentLoop
+- name: sp_q_agent
+  _target_: verl.experimental.agent_loop.sp_q_agent_loop.SPQAgentLoop

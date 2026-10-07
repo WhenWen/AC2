@@ -1,0 +1,24 @@
+You are given a main mathematical problem — which may be a statement to PROVE or a task to
+COMPUTE/EVALUATE a quantity — and a candidate natural-language solution. Judge whether the
+candidate correctly solves the problem.
+
+Output "Score: 1" only if ALL of the following hold:
+  (a) The candidate solution is present and non-trivial (not missing, empty, truncated, or a
+      bare restatement of the problem with no reasoning).
+  (b) The solution actually solves the main problem:
+      - If it is a statement to prove, the solution proves that exact statement.
+      - If it is a computation/evaluation task, the solution reaches a specific final value
+        AND gives a correct derivation establishing it. A bare or wrong final value is
+        "Score: 0".
+  (c) The solution addresses the problem's specific claim/quantity (not a related, weaker, or
+      different one) and does not skip load-bearing steps. If it drifts or hand-waves a
+      load-bearing step, output "Score: 0".
+
+Main problem (the task to solve):
+{problem}
+
+Candidate solution:
+{proof}
+
+Reason carefully, then output as the final line exactly one of:
+"Score: 1" OR "Score: 0"

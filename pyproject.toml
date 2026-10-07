@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ac2"
+version = "0.1.0"
+description = "AC2: Actor-Critic with Action Chunking. Code for the paper Trust the Critic More."
+requires-python = ">=3.12"
+# Runtime deps come from install.sh (pinned stack + vendored verl); keep this empty
+# so `pip install -e .` never perturbs those pins. Since 2026-07-11 the pinned stack
+# is CUDA 12.9 / torch 2.11.0+cu129 / vllm 0.23.0+cu129 (DeepSeek-V4-Flash-capable);
+# install.sh is the single source of truth for versions (no uv.lock by design).
+dependencies = []
+
+# vLLM loads this group inside EngineCore AND inside every worker process
+# (load_general_plugins in v1/engine/core.py and v1/worker/worker_base.py). That is the only
+# hook that reaches the process actually running attention: V1 runs the engine out-of-process,
+# so a patch applied by the training driver is simply absent where it matters. register() is a
+# no-op unless SP_GROUPED_CASCADE=1, so installing the package changes nothing by itself.
+[project.entry-points."vllm.general_plugins"]
+sp_grouped_cascade = "ac2.cascade_attn.vllm_grouped_cascade:register"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["ac2*"]   # scope to our package; the vendored verl installs separately
+
+[tool.setuptools.package-data]
+# Ship the judge/prompt templates and viz helper files. (For `pip install -e` these resolve
+# from the source tree via __file__ regardless; declared here so sdist/wheel builds include them.)
+"ac2.rewards" = ["templates/*.txt"]
+"ac2.data" = ["templates/*.txt"]
+"ac2.viz" = ["*.md"]

@@ -1,0 +1,11 @@
+Consider the following mathematical problem:
+{problem}
+
+Solve the problem. Write a complete solution/proof.
+
+- Enclose any brief thinking in <think></think> tags, then finish your thinking with </think>.
+
+Then write your final solution/proof inside <proof></proof> tags:
+<proof>
+...your solution/proof...
+</proof>
